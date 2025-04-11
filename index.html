@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BECA BUSINESS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pap2VsElkY3a2l+F4FTHYQ0bkIpZBQpqYZj4Lx1pYJyDWfQZl9xV2GNE2JgRcxn4GgXgYo9qB6wS2pYP6Z5bFw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -13,18 +17,37 @@
       text-align: center;
     }
     header {
-      padding: 2rem;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: fadeInDown 1.2s ease;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    header img {
+      width: 80px;
+      margin-bottom: 1rem;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
     h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       margin: 0;
     }
     p.slogan {
-      font-size: 1.3rem;
-      margin: 0.5rem 0 2rem;
+      font-size: 1.2rem;
+      margin: 0.5rem 0 1.5rem;
     }
     section {
-      padding: 2rem;
+      padding: 2rem 1rem;
     }
     .product-preview {
       display: flex;
@@ -39,10 +62,19 @@
       padding: 1rem;
       max-width: 250px;
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
     }
     .product img {
       width: 100%;
       border-radius: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+    .product img:hover {
+      transform: scale(1.05);
     }
     .whatsapp-button {
       display: inline-block;
@@ -54,16 +86,37 @@
       border-radius: 2rem;
       text-decoration: none;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s;
+    }
+    .whatsapp-button:hover {
+      background-color: #1ebe5d;
     }
     footer {
       background: #4a148c;
-      padding: 1rem;
+      padding: 1.5rem 1rem;
       font-size: 0.9rem;
+    }
+    .socials {
+      margin-top: 1rem;
+    }
+    .socials a {
+      color: white;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .socials i {
+      margin-right: 0.3rem;
+    }
+    @media screen and (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .product { max-width: 90%; }
     }
   </style>
 </head>
 <body>
   <header>
+    <img src="images/logo.jpg" alt="Logo BECA BUSINESS">
     <h1>BECA BUSINESS</h1>
     <p class="slogan">Des sacs stylés, pensés pour vous mesdames</p>
   </header>
@@ -72,14 +125,24 @@
     <h2>Nos coups de coeur</h2>
     <div class="product-preview">
       <div class="product">
-        <img src="sac1.jpg" alt="Sac 1">
+        <img src="sac1.jpg" alt="Sac Élégance">
         <h3>Sac Élégance</h3>
         <p>Parfait pour toutes les occasions</p>
       </div>
       <div class="product">
-        <img src="sac2.jpg" alt="Sac 2">
+        <img src="sac2.jpg" alt="Sac Chic Urbain">
         <h3>Sac Chic Urbain</h3>
         <p>Style et praticité réunis</p>
+      </div>
+      <div class="product">
+        <img src="sac3.jpg" alt="Sac Luxe Paris">
+        <h3>Sac Luxe Paris</h3>
+        <p>Un incontournable de l’élégance</p>
+      </div>
+      <div class="product">
+        <img src="sac2.jpg" alt="Sac Casual Day">
+        <h3>Sac Casual Day</h3>
+        <p>Idéal pour tous les jours</p>
       </div>
     </div>
     <a href="https://wa.me/221768815328" class="whatsapp-button" target="_blank">Commander sur WhatsApp</a>
@@ -87,7 +150,11 @@
 
   <footer>
     Contactez-nous : +221 76 881 53 28 | reebecaa27@icloud.com
+    <div class="socials">
+      <a href="https://www.facebook.com/BECA-BUSINESS" target="_blank"><i class="fab fa-facebook"></i>Facebook</a> |
+      <a href="https://www.instagram.com/beca.business" target="_blank"><i class="fab fa-instagram"></i>Instagram</a> |
+      <a href="https://www.tiktok.com/@beca.business" target="_blank"><i class="fab fa-tiktok"></i>TikTok</a>
+    </div>
   </footer>
 </body>
 </html>
-

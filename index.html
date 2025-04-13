@@ -4,11 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BECA BUSINESS</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pap2VsElkY3a2l+F4FTHYQ0bkIpZBQpqYZj4Lx1pYJyDWfQZl9xV2GNE2JgRcxn4GgXgYo9qB6wS2pYP6Z5bFw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -38,17 +36,9 @@
       50% { transform: scale(1.1); }
       100% { transform: scale(1); }
     }
-    h1 {
-      font-size: 2.5rem;
-      margin: 0;
-    }
-    p.slogan {
-      font-size: 1.2rem;
-      margin: 0.5rem 0 1.5rem;
-    }
-    section {
-      padding: 2rem 1rem;
-    }
+    h1 { font-size: 2.5rem; margin: 0; }
+    p.slogan { font-size: 1.2rem; margin: 0.5rem 0 1.5rem; }
+    section { padding: 2rem 1rem; }
     .product-preview {
       display: flex;
       flex-wrap: wrap;
@@ -71,30 +61,81 @@
     .product img {
       width: 100%;
       border-radius: 0.5rem;
-      transition: transform 0.3s ease;
+      cursor: pointer;
     }
-    .product img:hover {
-      transform: scale(1.05);
-    }
-    .whatsapp-button {
+    .whatsapp-link {
       display: inline-block;
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      background-color: #25D366;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #6a1b9a;
       color: white;
-      font-size: 1.2rem;
-      border-radius: 2rem;
+      border-radius: 1rem;
       text-decoration: none;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
     }
-    .whatsapp-button:hover {
-      background-color: #1ebe5d;
+    .whatsapp-link:hover {
+      background-color: #4a148c;
     }
+    #panier-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      color: #6a1b9a;
+      border-radius: 1rem;
+      padding: 1rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      z-index: 999;
+      max-width: 300px;
+    }
+    #panier-liste button {
+      background: #6a1b9a;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.2rem 0.5rem;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      display: none;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 1rem;
+    }
+    .lightbox .close, .lightbox .prev, .lightbox .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+    .lightbox .close {
+      top: 10%;
+      right: 5%;
+      font-size: 2.5rem;
+    }
+    .lightbox .prev { left: 5%; }
+    .lightbox .next { right: 5%; }
     footer {
       background: #4a148c;
       padding: 1.5rem 1rem;
       font-size: 0.9rem;
+      margin-top: 2rem;
     }
     .socials {
       margin-top: 1rem;
@@ -120,41 +161,129 @@
     <h1>BECA BUSINESS</h1>
     <p class="slogan">Des sacs stylés, pensés pour vous mesdames</p>
   </header>
-
   <section>
     <h2>Nos coups de coeur</h2>
-    <div class="product-preview">
-      <div class="product">
-        <img src="sac1.jpg" alt="Sac Élégance">
-        <h3>Sac Élégance</h3>
-        <p>Parfait pour toutes les occasions</p>
-      </div>
-      <div class="product">
-        <img src="sac2.jpg" alt="Sac Chic Urbain">
-        <h3>Sac Chic Urbain</h3>
-        <p>Style et praticité réunis</p>
-      </div>
-      <div class="product">
-        <img src="sac3.jpg" alt="Sac Luxe Paris">
-        <h3>Sac Luxe Paris</h3>
-        <p>Un incontournable de l’élégance</p>
-      </div>
-      <div class="product">
-        <img src="sac2.jpg" alt="Sac Casual Day">
-        <h3>Sac Casual Day</h3>
-        <p>Idéal pour tous les jours</p>
-      </div>
-    </div>
-    <a href="https://wa.me/221768815328" class="whatsapp-button" target="_blank">Commander sur WhatsApp</a>
+    <div class="product-preview" id="gallery"></div>
   </section>
 
+  <div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+    <img id="lightbox-img" src="" alt="Sac zoom">
+    <span class="next" onclick="changeImage(1)">&#10095;</span>
+  </div>
+
+  <div id="panier-container">
+    <h3>👜 Panier (<span id="panier-count">0</span>)</h3>
+    <ul id="panier-liste" style="list-style: none; padding: 0; max-height: 200px; overflow-y: auto;"></ul>
+    <p>Total : <strong id="panier-total">0</strong> Fcfa</p>
+    <button class="whatsapp-link" onclick="commanderWhatsApp()" style="background-color: #25D366;">Commander sur WhatsApp</button>
+    <button class="whatsapp-link" onclick="viderPanier()" style="margin-top: 5px; background:#ab47bc">Vider le panier</button>
+  </div>
+
   <footer>
-    Contactez-nous : +221 76 881 53 28 | reebecaa27@icloud.com
+    Contactez-nous : +221 76 881 53 28 | becabusiness01@gmail.com
     <div class="socials">
-      <a href="https://www.facebook.com/share/1E3gCFG9Lm/" target="_blank"><i class="fab fa-facebook"></i>Facebook</a> |
-      <a href="https://www.instagram.com/becabusiness01?igsh=NWk4cWVvcDBweW41" target="_blank"><i class="fab fa-instagram"></i>Instagram</a> |
-      <!-- <a href="https://www.tiktok.com/@beca.business" target="_blank"><i class="fab fa-tiktok"></i>TikTok</a> -->
+      <a href="https://www.facebook.com/share/1E3gCFG9Lm/" target="_blank"><i class="fab fa-facebook"></i>Facebook</a>
+      <a href="https://www.instagram.com/becabusiness01?igsh=NWk4cWVvcDBweW41" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
+      <!--<a href="https://www.tiktok.com/@beca.business" target="_blank"><i class="fab fa-tiktok"></i>TikTok</a>-->
     </div>
   </footer>
+
+  <script>
+    const sacs = [
+      { nom: "Sac Élégance", desc: "Parfait pour toutes les occasions" },
+      { nom: "Sac Chic Urbain", desc: "Style et praticité réunis" },
+      { nom: "Sac Luxe Paris", desc: "Un incontournable de l’élégance" },
+      { nom: "Sac Casual Day", desc: "Idéal pour tous les jours" },
+      { nom: "Sac Bohème", desc: "Détente et charme" },
+      { nom: "Sac Nuit Dorée", desc: "Pour briller en soirée" },
+      { nom: "Sac Naturel", desc: "Simple et tendance" },
+      { nom: "Sac Vintage Chic", desc: "Un look rétro irrésistible" },
+      { nom: "Sac Élégance Noire", desc: "Classique et indémodable" },
+      { nom: "Sac Color Pop", desc: "Un éclat de couleur au quotidien" },
+      { nom: "Sac Soft Touch", desc: "Doux et raffiné" },
+      { nom: "Sac Mini Style", desc: "Petit mais stylé" },
+      { nom: "Sac Grand Format", desc: "Tout votre monde dans un sac" },
+      { nom: "Sac Léopard", desc: "Audace garantie" },
+      { nom: "Sac Tendance 2025", desc: "Le must de cette année" },
+      { nom: "Sac Matelassé", desc: "Look luxe assuré" },
+      { nom: "Sac Day to Night", desc: "Polyvalent et glamour" },
+      { nom: "Sac Coeur", desc: "Un sac qui fait battre les cœurs" },
+      { nom: "Sac Métallique", desc: "Effet waouh assuré" },
+      { nom: "Sac Transparence Chic", desc: "Léger et élégant" }
+    ];
+
+    const gallery = document.getElementById('gallery');
+    sacs.forEach((sac, index) => {
+      const sacHTML = `
+        <div class="product">
+          <img src="sac${index+1}.jpg" alt="${sac.nom}" onclick="openLightbox(${index})">
+          <h3>${sac.nom}</h3>
+          <p>${sac.desc}</p>
+          <p><strong>Prix : 5500 Fcfa</strong></p>
+          <button class="whatsapp-link" onclick="ajouterAuPanier('${sac.nom}')">Ajouter au panier</button>
+        </div>
+      `;
+      gallery.innerHTML += sacHTML;
+    });
+
+    let currentIndex = 0;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(index) {
+      currentIndex = index;
+      lightbox.style.display = 'flex';
+      lightboxImg.src = `sac${index+1}.jpg`;
+    }
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+    function changeImage(step) {
+      currentIndex = (currentIndex + step + sacs.length) % sacs.length;
+      lightboxImg.src = `sac${currentIndex+1}.jpg`;
+    }
+
+    const panier = [];
+    function ajouterAuPanier(nomSac) {
+      panier.push(nomSac);
+      mettreAJourPanier();
+    }
+    function mettreAJourPanier() {
+      const panierListe = document.getElementById('panier-liste');
+      const panierCount = document.getElementById('panier-count');
+      const panierTotal = document.getElementById('panier-total');
+      panierListe.innerHTML = '';
+      panierCount.textContent = panier.length;
+      panierTotal.textContent = panier.length * 5500;
+
+      panier.forEach((item, i) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Retirer';
+        removeBtn.onclick = () => {
+          panier.splice(i, 1);
+          mettreAJourPanier();
+        };
+        li.appendChild(removeBtn);
+        panierListe.appendChild(li);
+      });
+    }
+    function commanderWhatsApp() {
+      if (panier.length === 0) {
+        alert("Votre panier est vide !");
+        return;
+      }
+      const message = `Bonjour, je souhaite commander les sacs suivants :\n\n${panier.map((sac, i) => `${i+1}. ${sac}`).join('\n')}`;
+      const url = `https://wa.me/221768815328?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+    function viderPanier() {
+      panier.length = 0;
+      mettreAJourPanier();
+    }
+  </script>
 </body>
 </html>
